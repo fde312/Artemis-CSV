@@ -1,0 +1,34 @@
+
+{
+    "arTeMiSApp": {
+        "exercise" : {
+            "home": {
+                "title": "Exercises",
+                "createLabel": "Exercise erstellen",
+                "createOrEditLabel": "Exercise erstellen oder bearbeiten"
+            },
+            "created": "Exercise erstellt mit ID {{ param }}",
+            "updated": "Exercise aktualisiert mit ID {{ param }}",
+            "deleted": "Exercise gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Exercise {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Exercise"
+            },
+            "title": "Title",
+            "releaseDate": "Release Date",
+            "dueDate": "Due Date",
+            "maxScore": "Max Score",
+            "participations": "Participations",
+            "course": "Course",
+            "welcome": "<strong>Welcome to ArTEMiS!</strong> We have automatically created an account for you. Click the <i>Start Exercise</i> button to get started!",
+            "personalRepository": "Your personal repository has been set up. Click the <i>Clone repository</i> button to get started!",
+            "startError": "<strong>Uh oh! Something went wrong... Please try again in a few seconds.</strong>"
+        },
+        "exerciseLtiConfiguration" : {
+            "lti": "LTI",
+            "configurationForExercise": "LTI Konfiguration der Übung {{ title }}"
+        }
+    }
+}

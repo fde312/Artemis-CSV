@@ -1,0 +1,18 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "dropLocationCounters",
+            "otherEntityName": "dropLocationCounter",
+            "otherEntityRelationshipName": "dragAndDropQuestionStatistic"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20180116211221",
+    "entityTableName": "drag_and_drop_question_statistic",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

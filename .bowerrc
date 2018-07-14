@@ -1,0 +1,5 @@
+{
+  "directory": "src/main/webapp/ng1/bower_components",
+  "interactive": false,
+  "ignoredDependencies": [ "bootstrap" ]
+}

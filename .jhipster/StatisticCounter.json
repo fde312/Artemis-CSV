@@ -1,0 +1,20 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "ratedCounter",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "unRatedCounter",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180116211222",
+    "entityTableName": "statistic_counter",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

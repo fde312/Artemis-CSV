@@ -1,0 +1,32 @@
+
+{
+    "arTeMiSApp": {
+        "course" : {
+            "home": {
+                "title": "Courses",
+                "createLabel": "Course erstellen",
+                "createOrEditLabel": "Course erstellen oder bearbeiten"
+            },
+            "created": "Course erstellt mit ID {{ param }}",
+            "updated": "Course aktualisiert mit ID {{ param }}",
+            "deleted": "Course gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Course {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Course"
+            },
+            "title": "Title",
+            "studentGroupName": "Student Group Name",
+            "teachingAssistantGroupName": "Teaching Assistant Group Name",
+            "instructorGroupName": "Instructor Group Name",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "onlineCourse": "Online Course",
+            "exercises": "Exercises",
+            "programmingExercises": "Programmieraufgaben",
+            "quizExercises": "Quizaufgaben",
+            "modelingExercises": "Modellierungsaufgaben (Beta)"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "question",
+            "otherEntityName": "question",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "questionStatistic"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "ratedCorrectCounter",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "unRatedCorrectCounter",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180116211219",
+    "entityTableName": "question_statistic",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

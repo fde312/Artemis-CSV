@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "released",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "participantsRated",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "participantsUnrated",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180116211217",
+    "entityTableName": "statistic",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

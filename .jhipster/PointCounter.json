@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "quizPointStatistic",
+            "otherEntityName": "quizPointStatistic",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "points",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20180116211223",
+    "entityTableName": "point_counter",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}
