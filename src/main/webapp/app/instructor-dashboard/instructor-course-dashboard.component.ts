@@ -26,6 +26,8 @@ export class InstructorCourseDashboardComponent implements OnInit, OnDestroy {
     typeQ = [];
     typeP = [];
     typeM = [];
+    finalScores = [];
+    exportReady = false;
 
     constructor(private route: ActivatedRoute,
                 private courseService: CourseService,
@@ -126,10 +128,6 @@ export class InstructorCourseDashboardComponent implements OnInit, OnDestroy {
             }
         }
         this.rows = Object.keys(rows).map(key => rows[key]);
-
-        console.log(this.results);
-
-
     }
 
     getAllScoresForAllCourseParticipants(){
@@ -149,6 +147,7 @@ export class InstructorCourseDashboardComponent implements OnInit, OnDestroy {
                 typeP[result.participation.student.id] = {
                     'firstName': result.participation.student.firstName,
                     'lastName': result.participation.student.lastName,
+                    'id': result.participation.student.id,
                     'login': result.participation.student.login,
                     'exType': 'programming-exercise',
                     'totalScore': 0
@@ -158,6 +157,7 @@ export class InstructorCourseDashboardComponent implements OnInit, OnDestroy {
                 typeQ[result.participation.student.id] = {
                     'firstName': result.participation.student.firstName,
                     'lastName': result.participation.student.lastName,
+                    'id': result.participation.student.id,
                     'login': result.participation.student.login,
                     'exType': 'quiz',
                     'totalScore': 0
@@ -167,6 +167,7 @@ export class InstructorCourseDashboardComponent implements OnInit, OnDestroy {
                 typeM[result.participation.student.id] = {
                     'firstName': result.participation.student.firstName,
                     'lastName': result.participation.student.lastName,
+                    'id': result.participation.student.id,
                     'login': result.participation.student.login,
                     'exType': 'modelling-exercise',
                     'totalScore': 0
@@ -181,14 +182,15 @@ export class InstructorCourseDashboardComponent implements OnInit, OnDestroy {
                     switch (result.participation.exercise.type) {
                         case "quiz":
                             typeQ[result.participation.student.id].totalScore += result.score;
+                            break;
 
                         case "programming-exercise":
-                            console.log(result.participation.student.id);
                             typeP[result.participation.student.id].totalScore += result.score;
+                            break;
 
                         case "modelling-exercise":
                             typeM[result.participation.student.id].totalScore += result.score;
-
+                            break;
                         default:
                     }
                 }
@@ -199,38 +201,84 @@ export class InstructorCourseDashboardComponent implements OnInit, OnDestroy {
         this.typeP = Object.keys(typeQ).map(key => typeP[key]);
         this.typeM = Object.keys(typeQ).map(key => typeM[key]);
 
-        console.log(this.typeQ);
-        console.log(this.typeM);
-        console.log(this.typeP);
+        this.mergeScoresForExerciseCategories();
+    }
 
+    mergeScoresForExerciseCategories(){
+
+        const finalScores = {};
+
+        for (const q of this.typeQ) {
+            if(!finalScores[q.id]){
+                finalScores[q.id] = {
+                    'firstName': q.firstName,
+                    'lastName': q.lastName,
+                    'login': q.login,
+                    'QuizTotalScore': 0,
+                    'ProgrammingTotalScore': 0,
+                    'ModellingTotalScore': 0,
+                    'OverallScore': 0
+                };
+            }
+            finalScores[q.id].QuizTotalScore = q.totalScore;
+        }
+
+        for (const m of this.typeM) {
+            finalScores[m.id].ModellingTotalScore = m.totalScore;
+        }
+
+        for (const p of this.typeP) {
+            finalScores[p.id].ModellingTotalScore = p.totalScore;
+        }
+
+        for (const c of this.courseScores) {
+            if(!finalScores[c.participation.student.id]){
+                finalScores[c.participation.student.id] = {
+                    'firstName': c.participation.student.firstName,
+                    'lastName': c.participation.student.lastName,
+                    'login': c.participation.student.login,
+                    'QuizTotalScore': 0,
+                    'ProgrammingTotalScore': 0,
+                    'ModellingTotalScore': 0,
+                    'OverallScore': c.score
+                };
+            } else {
+                finalScores[c.participation.student.id].OverallScore = c.score;
+            }
+        }
+
+        this.finalScores = Object.keys(finalScores).map(key => finalScores[key]);
+        this.exportReady = true;
     }
 
     exportResults() {
 
-        console.log(this.typeP);
+        this.getAllScoresForAllCourseParticipants();
 
-        if (this.typeP.length > 0) {
+        if (this.exportReady && this.finalScores.length > 0) {
             const rows = [];
-            this.typeP.forEach((result, index) => {
+            this.finalScores.forEach((result, index) => {
 
-                const student = result.login;
-                const type = result.exType;
-                const score = result.totalScore;
-                console.log(score);
-                //console.log(this.getResults(1));
+                const firstName = result.firstName;
+                const lastName = result.lastName;
+                const studentId = result.login;
+                const quiz = result.QuizTotalScore;
+                const programming = result.ProgrammingTotalScore;
+                const modelling = result.ModellingTotalScore;
+                const score = result.OverallScore;
 
                 if (index === 0) {
-                    rows.push('data:text/csv;charset=utf-8,TumId,ExerciseType,TotalExerciseScore');
-                    rows.push(student + ', ' + type + ', ' + score);
+                    rows.push('data:text/csv;charset=utf-8,FirstName,LastName,TumId,QuizTotalScore,ProgrammingTotalScore,ModellingTotalScore,OverallScore');
+                    rows.push(firstName + ', ' + lastName + ', ' + studentId + ', ' + quiz + ', ' + programming + ', ' + modelling + ', ' + score );
                 } else {
-                    rows.push(student + ', ' + type + ', ' + score);
+                    rows.push(firstName + ', ' + lastName + ', ' + studentId + ', ' + quiz + ', ' + programming + ', ' + modelling + ', ' + score );
                 }
             });
             const csvContent = rows.join('\n');
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement('a');
             link.setAttribute('href', encodedUri);
-            link.setAttribute('download', 'results-scores.csv');
+            link.setAttribute('download', 'course_' + this.course.title + '-scores.csv');
             document.body.appendChild(link); // Required for FF
             link.click();
         }

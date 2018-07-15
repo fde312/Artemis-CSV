@@ -1,6 +1,7 @@
 <div *ngIf="course">
     <h2>{{course.title}} <small>{{numberOfExercises}} <span jhiTranslate="arTeMiSApp.exercise.home.title"> exercises</span>, {{rows.length}} <span jhiTranslate="instructorDashboard.students">students</span></small></h2>
 <jhi-alert></jhi-alert>
+    <button class="btn btn-primary btn-sm"  (click)="exportResults()"><i class="fa fa-download fa-fw"></i>&nbsp;Export Results as CSV</button>
     <div class="table-responsive" *ngIf="rows">
         <table class="table table-striped">
             <thead>
@@ -12,7 +13,6 @@
                 <th jhiSortBy="login">
                     <span jhiTranslate="userManagement.login">Login</span> <span class="fa fa-sort"></span>
                 </th>
-
 
                 <th jhiSortBy="participated">
                     <span jhiTranslate="instructorDashboard.participated">Participated in exercises</span> <span class="fa fa-sort"></span>
@@ -51,8 +51,5 @@
             </tr>
             </tbody>
         </table>
-
-        <button class="btn btn-success" (click)="exportResults()">Export</button>
-        <button class="btn btn-success" (click)="getAllScoresForAllCourseParticipants()">Calc</button>
     </div>
 </div>
